@@ -1,0 +1,51 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block content %}
+    {#    <h1 class="content">{{ }}</h1>#}
+
+   <section class="content-header">
+      <h1>
+        Courses List
+        <small>Select any course</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Courses</a></li>
+      </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+            {% for item in courses %}
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <a href="{% url 'courseselected' item.pk %}" class="small-box-footer hyperlink-learnobot">
+
+                        <div class="info-box">
+                        <span class="info-box-icon bg-aqua">
+{#                            <i class="fa fa-envelope-o"></i>#}
+                <img src="{{ item.cover_photo }}" alt="..." class="image">
+
+                        </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">{{ item.course_name }}</span>
+                                <span class="info-box-number">
+                                {% if item.myCourse is None %}0{% else %}{{ item.myCourse.percentage }}{% endif %}%
+                            </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+
+
+            {% endfor %}
+
+        </div>
+    </section>
+
+{% endblock %}
+

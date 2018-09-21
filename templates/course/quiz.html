@@ -1,0 +1,68 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block content %}
+    {#    <h1 class="content">{{ }}</h1>#}
+
+    <section class="content-header">
+        <h1>
+            {{ course }}
+            <small>{{ activeCourseWork }}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Quiz</a></li>
+            {#        <li class="active"></li>#}
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Question {{ question_number }} out of {{ total_questions }}</h3>
+            </div>
+            <div class="box-body">
+                <h4>{{ question }}</h4>
+                <form action="{% url 'SubmitQuizAnswer' %}" method="POST">
+                        {% csrf_token %}
+
+                    <div class="box-group" id="info-box">
+                        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                        <div class="form-group">
+
+                        </div>
+
+
+                        {% for key, value in options.items %}
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="quizanswer" id="quizanswer" value="{{ key }}">{{ value }}
+                                </label>
+                            </div>
+                        {% endfor %}
+
+                        <input type="hidden" name="pk" value="{{ pk }}">
+                        <input type="hidden" name="myQuizPk" value="{{ myQuizPk }}">
+                        <button class="btn btn-primary">
+                            {% if question_number == total_questions  %}
+                                Finish Quiz
+                            {% else %}
+                                Next Question
+                            {% endif %}
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        </div>
+        <!-- /.box -->
+
+    </section>
+
+{% endblock %}
+
