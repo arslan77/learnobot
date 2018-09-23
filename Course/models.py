@@ -27,7 +27,7 @@ class CourseWork(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     next_course_work = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
-        return self.work_name
+        return self.work_name + " - "+self.course.course_name
 
 class Quiz(models.Model):
     RADIO = 1
