@@ -1,1 +1,1 @@
-web: gunicorn learnobot.wsgi
+web: gunicorn learnobottask.wsgi
