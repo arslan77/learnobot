@@ -3,7 +3,7 @@ from builtins import object
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.utils import timezone
@@ -26,6 +26,9 @@ def CourseSelected(request, courseId=0):
     resp = {}
     resp["course"] = Course.objects.get(pk= courseId)
     resp["mineCourse"] = MyCourse.objects.filter(course__course_id=resp["course"].course_id , user=request.user).first()
+    if resp["mineCourse"].percentage==100:
+        return  redirect('home')
+
     if resp["mineCourse"] is None:
         resp["mineCourse"] = MyCourse(user=request.user, course=resp["course"])
         resp["mineCourse"].save()
@@ -58,6 +61,7 @@ def NextCourseWork(request, CourseId, CurrentCourseWorkId):
         mineCourse.save()
     else:
         mineCourse = mineCourse.first()
+
     courseWorkList = course.coursework_set.all()
 
     nextCourseWorks = []
@@ -74,6 +78,9 @@ def NextCourseWork(request, CourseId, CurrentCourseWorkId):
 
     mineCourse.save()
 
+    if mineCourse.percentage==100:
+        return  redirect('home')
+
     activeCourseWork = mineCourse.current_course_work
     # courseWorkList = course.coursework_set.all()
     nextURL = ''
@@ -86,6 +93,8 @@ def NextCourseWork(request, CourseId, CurrentCourseWorkId):
             'nextURL': nextURL,
             'mineCourse': mineCourse,
         })
+    else:
+        return HandleQuiz(request, activeCourseWork)
     # return  HttpResponse('<h1>Pending work</h1>')
 
 
@@ -176,6 +185,10 @@ def QuizFinished(request, myQuiz, activeCourseWork):
         mineCourse.current_course_work = nextCourseWork
 
     mineCourse.save()
+
+    if mineCourse.percentage==100:
+        return redirect('Index')
+
     activeCourseWork = mineCourse.current_course_work
     nextURL = ''
     # if  is None:

@@ -1,7 +1,7 @@
 {% load static %}
 <header class="main-header">
     <!-- Logo -->
-    <a href="{% url 'home' %}" class="logo">
+    <a href="{% url 'landingpage' %}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>L</b>Bot</span>
         <!-- logo for regular state and mobile devices -->
@@ -50,12 +50,12 @@
 
                 {% else %}
                     <li>
-                        <a href="{% url 'register' %}?next=/">
+                        <a href="{% url 'register' %}?next=/dashboard">
                             Register
                         </a>
                     </li>
                     <li >
-                        <a href="{% url 'login' %}?next=/" >
+                        <a href="{% url 'login' %}?next=/dashboard" >
                             Log In
                         </a>
                     </li>

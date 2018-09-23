@@ -1,0 +1,68 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block content %}
+    {#    <h1 class="content">{{ }}</h1>#}
+
+    <section class="content-header">
+        <h1>
+            Result Card
+            <small>Quizez</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Report</a></li>
+            {#        <li class="active"></li>#}
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">MY QUIZEZ</h3>
+
+                <div class="box-tools">
+
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>ID</th>
+                        <th>Subject Name</th>
+                        <th>Quiz Name</th>
+                        <th>Total Marks</th>
+                        <th>Obtained Marks</th>
+                        <th>Percentage</th>
+                        <th>Date Time</th>
+                        <th>Completed</th>
+
+                    </tr>
+                    {% for quiz in quizez %}
+                        <tr>
+                            <td>{{ quiz.Id }}</td>
+                            <td>{{ quiz.SubjectName }}</td>
+                            <td>{{ quiz.QuizName }}</td>
+                            <td>{{ quiz.TotalMarks }}</td>
+                            <td><span class="label {{ quiz.ClassName }}">{{ quiz.ObtainedMarks }}</span></td>
+                            <td><span class="label {{ quiz.ClassName }}">{{ quiz.Percentage }}</span></td>
+                            <td>{{ quiz.DateTime }}</td>
+                            <td>{{ quiz.is_completed }}</td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+
+
+    </section>
+
+{% endblock %}
+

@@ -21,6 +21,11 @@ def index(request):
     })
 
 
+def LandingPage(request):
+    return render(request, 'landingpage.html')
+
+
+
 def register(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
