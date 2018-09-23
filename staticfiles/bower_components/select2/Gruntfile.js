@@ -72,20 +72,20 @@ module.exports = function (grunt) {
           banner: grunt.file.read('src/js/wrapper.start.js'),
         },
         src: [
-          'dist/js/select2.js',
+          'assets/js/select2.js',
           'src/js/wrapper.end.js'
         ],
-        dest: 'dist/js/select2.js'
+        dest: 'assets/js/select2.js'
       },
       'dist.full': {
         options: {
           banner: grunt.file.read('src/js/wrapper.start.js'),
         },
         src: [
-          'dist/js/select2.full.js',
+          'assets/js/select2.full.js',
           'src/js/wrapper.end.js'
         ],
-        dest: 'dist/js/select2.full.js'
+        dest: 'assets/js/select2.full.js'
       }
     },
 
@@ -101,15 +101,15 @@ module.exports = function (grunt) {
 
     uglify: {
       'dist': {
-        src: 'dist/js/select2.js',
-        dest: 'dist/js/select2.min.js',
+        src: 'assets/js/select2.js',
+        dest: 'assets/js/select2.min.js',
         options: {
           banner: minifiedBanner
         }
       },
       'dist.full': {
-        src: 'dist/js/select2.full.js',
-        dest: 'dist/js/select2.full.min.js',
+        src: 'assets/js/select2.full.js',
+        dest: 'assets/js/select2.full.min.js',
         options: {
           banner: minifiedBanner
         }
@@ -248,7 +248,7 @@ module.exports = function (grunt) {
         src: [
           '*'
         ],
-        dest: 'docs/dist',
+        dest: 'docs/assets',
         filter: 'isDirectory'
       }
     },
@@ -259,7 +259,7 @@ module.exports = function (grunt) {
           baseUrl: 'src/js',
           optimize: 'none',
           name: 'select2/core',
-          out: 'dist/js/select2.js',
+          out: 'assets/js/select2.js',
           include: includes,
           namespace: 'S2',
           paths: {
@@ -278,7 +278,7 @@ module.exports = function (grunt) {
           baseUrl: 'src/js',
           optimize: 'none',
           name: 'select2/core',
-          out: 'dist/js/select2.full.js',
+          out: 'assets/js/select2.full.js',
           include: fullIncludes,
           namespace: 'S2',
           paths: {
@@ -295,7 +295,7 @@ module.exports = function (grunt) {
       'i18n': {
         options: {
           baseUrl: 'src/js/select2/i18n',
-          dir: 'dist/js/i18n',
+          dir: 'assets/js/i18n',
           paths: i18nPaths,
           modules: i18nModules,
           namespace: 'S2',
@@ -349,11 +349,11 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['compile', 'test', 'minify']);
 
   grunt.registerTask('compile', [
-    'requirejs:dist', 'requirejs:dist.full', 'requirejs:i18n',
-    'concat:dist', 'concat:dist.full',
+    'requirejs:assets', 'requirejs:assets.full', 'requirejs:i18n',
+    'concat:assets', 'concat:assets.full',
     'sass:dev'
   ]);
-  grunt.registerTask('minify', ['uglify', 'sass:dist']);
+  grunt.registerTask('minify', ['uglify', 'sass:assets']);
   grunt.registerTask('test', ['connect:tests', 'qunit', 'jshint']);
 
   var ciTasks = [];

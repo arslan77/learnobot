@@ -18,7 +18,7 @@ module.exports = function(grunt){
 
         // Task configuration.
         clean: {
-            dist: ['dist', '*-dist.zip']
+            dist: ['dist', '*-assets.zip']
         },
         jshint: {
             options: {
@@ -64,7 +64,7 @@ module.exports = function(grunt){
             },
             main: {
                 src: 'js/bootstrap-datepicker.js',
-                dest: 'dist/js/<%= pkg.name %>.js'
+                dest: 'assets/js/<%= pkg.name %>.js'
             }
         },
         uglify: {
@@ -73,14 +73,14 @@ module.exports = function(grunt){
             },
             main: {
                 src: '<%= concat.main.dest %>',
-                dest: 'dist/js/<%= pkg.name %>.min.js'
+                dest: 'assets/js/<%= pkg.name %>.min.js'
             },
             locales: {
                 files: [{
                     expand: true,
                     cwd: 'js/locales/',
                     src: '*.js',
-                    dest: 'dist/locales/',
+                    dest: 'assets/locales/',
                     rename: function(dest, name){
                         return dest + name.replace(/\.js$/, '.min.js');
                     }
@@ -97,36 +97,36 @@ module.exports = function(grunt){
                     sourceMapURL: '<%= pkg.name %>.standalone.css.map'
                 },
                 src: 'build/build_standalone.less',
-                dest: 'dist/css/<%= pkg.name %>.standalone.css'
+                dest: 'assets/css/<%= pkg.name %>.standalone.css'
             },
             standalone_bs3: {
                 options: {
                     sourceMapURL: '<%= pkg.name %>3.standalone.css.map'
                 },
                 src: 'build/build_standalone3.less',
-                dest: 'dist/css/<%= pkg.name %>3.standalone.css'
+                dest: 'assets/css/<%= pkg.name %>3.standalone.css'
             },
             main_bs2: {
                 options: {
                     sourceMapURL: '<%= pkg.name %>.css.map'
                 },
                 src: 'build/build.less',
-                dest: 'dist/css/<%= pkg.name %>.css'
+                dest: 'assets/css/<%= pkg.name %>.css'
             },
             main_bs3: {
                 options: {
                     sourceMapURL: '<%= pkg.name %>3.css.map'
                 },
                 src: 'build/build3.less',
-                dest: 'dist/css/<%= pkg.name %>3.css'
+                dest: 'assets/css/<%= pkg.name %>3.css'
             }
         },
         usebanner: {
             options: {
                 banner: '<%= banner %>'
             },
-            css: 'dist/css/*.css',
-            js: 'dist/js/**/*.js'
+            css: 'assets/css/*.css',
+            js: 'assets/js/**/*.js'
         },
         cssmin: {
             options: {
@@ -136,14 +136,14 @@ module.exports = function(grunt){
             },
             main: {
                 files: {
-                    'dist/css/<%= pkg.name %>.min.css': 'dist/css/<%= pkg.name %>.css',
-                    'dist/css/<%= pkg.name %>3.min.css': 'dist/css/<%= pkg.name %>3.css'
+                    'dist/css/<%= pkg.name %>.min.css': 'assets/css/<%= pkg.name %>.css',
+                    'dist/css/<%= pkg.name %>3.min.css': 'assets/css/<%= pkg.name %>3.css'
                 }
             },
             standalone: {
                 files: {
-                    'dist/css/<%= pkg.name %>.standalone.min.css': 'dist/css/<%= pkg.name %>.standalone.css',
-                    'dist/css/<%= pkg.name %>3.standalone.min.css': 'dist/css/<%= pkg.name %>3.standalone.css'
+                    'dist/css/<%= pkg.name %>.standalone.min.css': 'assets/css/<%= pkg.name %>.standalone.css',
+                    'dist/css/<%= pkg.name %>3.standalone.min.css': 'assets/css/<%= pkg.name %>3.standalone.css'
                 }
             }
         },
@@ -152,16 +152,16 @@ module.exports = function(grunt){
                 csslintrc: 'less/.csslintrc'
             },
             dist: [
-                'dist/css/bootstrap-datepicker.css',
-                'dist/css/bootstrap-datepicker3.css',
-                'dist/css/bootstrap-datepicker.standalone.css',
-                'dist/css/bootstrap-datepicker3.standalone.css'
+                'assets/css/bootstrap-datepicker.css',
+                'assets/css/bootstrap-datepicker3.css',
+                'assets/css/bootstrap-datepicker.standalone.css',
+                'assets/css/bootstrap-datepicker3.standalone.css'
             ]
         },
         compress: {
             main: {
                 options: {
-                    archive: '<%= pkg.name %>-<%= pkg.version %>-dist.zip',
+                    archive: '<%= pkg.name %>-<%= pkg.version %>-assets.zip',
                     mode: 'zip',
                     level: 9,
                     pretty: true
@@ -169,7 +169,7 @@ module.exports = function(grunt){
                 files: [
                     {
                         expand: true,
-                        cwd: 'dist/',
+                        cwd: 'assets/',
                         src: '**'
                     }
                 ]
@@ -208,18 +208,18 @@ module.exports = function(grunt){
     require('time-grunt')(grunt);
 
     // JS distribution task.
-    grunt.registerTask('dist-js', ['concat', 'uglify:main', 'uglify:locales', 'usebanner:js']);
+    grunt.registerTask('assets-js', ['concat', 'uglify:main', 'uglify:locales', 'usebanner:js']);
 
     // CSS distribution task.
     grunt.registerTask('less-compile', 'less');
-    grunt.registerTask('dist-css', ['less-compile', 'cssmin:main', 'cssmin:standalone', 'usebanner:css']);
+    grunt.registerTask('assets-css', ['less-compile', 'cssmin:main', 'cssmin:standalone', 'usebanner:css']);
 
     // Full distribution task.
-    grunt.registerTask('dist', ['clean:dist', 'dist-js', 'dist-css']);
+    grunt.registerTask('dist', ['clean:assets', 'assets-js', 'assets-css']);
 
     // Code check tasks.
     grunt.registerTask('lint-js', 'Lint all js files with jshint and jscs', ['jshint', 'jscs']);
-    grunt.registerTask('lint-css', 'Lint all css files', ['dist-css', 'csslint:dist']);
+    grunt.registerTask('lint-css', 'Lint all css files', ['assets-css', 'csslint:assets']);
     grunt.registerTask('qunit-all', 'Run qunit tests', ['qunit:main', 'qunit-timezone']);
     grunt.registerTask('test', 'Lint files and run unit tests', ['lint-js', /*'lint-css',*/ 'qunit-all']);
 
