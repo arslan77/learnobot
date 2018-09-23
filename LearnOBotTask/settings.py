@@ -25,10 +25,12 @@ SECRET_KEY = 'i4qql9)&+8)de)zhmlo67!k$5cfnpi%^v9u)cswhlx8u!%388c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-
+DEBUG_PROPAGATE_EXCEPTIONS = True
 # Application definition
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,7 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -120,20 +122,26 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_STORAGE = 'LearnOBotTask.storage.CustomManifestFilesMixin'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'templates/assets/')
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'templates/assets/')
 
-STATIC_URL = '/assets/'
+# STATIC_URL = '/static/'
 
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "templates/assets/"),
-    # '/var/www/static/',
-]
+#
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static/"),
+#     os.path.join(BASE_DIR, "staticfiles/"),
+#     '/var/www/static/',
+# ]
 
 django_heroku.settings(locals())
+

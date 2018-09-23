@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from django.conf import settings
 from main import views as core_views
 
 urlpatterns = [
@@ -26,6 +28,6 @@ urlpatterns = [
     path('accounts/register/', core_views.register, name='register'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('Course', include('Course.urls')),
-]
+] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
 
-urlpatterns += staticfiles_urlpatterns()
+# urlpatterns += staticfiles_urlpatterns()
