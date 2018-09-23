@@ -7,10 +7,10 @@
     "datepicker",
     "bootstrap"
   ],
-  "main": "./dist/js/bootstrap-datepicker.js",
+  "main": "assets/js/bootstrap-datepicker.js",
   "files": [
     "build",
-    "dist",
+    "assets",
     "js/**/*.js",
     "less/*.less",
     "LICENSE"
