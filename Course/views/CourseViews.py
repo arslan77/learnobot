@@ -26,8 +26,6 @@ def CourseSelected(request, courseId=0):
     resp = {}
     resp["course"] = Course.objects.get(pk= courseId)
     resp["mineCourse"] = MyCourse.objects.filter(course__course_id=resp["course"].course_id , user=request.user).first()
-    if resp["mineCourse"].percentage==100:
-        return  redirect('home')
 
     if resp["mineCourse"] is None:
         resp["mineCourse"] = MyCourse(user=request.user, course=resp["course"])
@@ -43,6 +41,10 @@ def CourseSelected(request, courseId=0):
         courseWork = resp["course"].coursework_set.all()
         resp["mineCourse"].current_course_work = courseWork.first()
         resp["mineCourse"].save()
+
+    if resp["mineCourse"].percentage==100:
+        return  redirect('home')
+
 
     resp["activeCourseWork"] = resp["mineCourse"].current_course_work
     resp["courseWorkList"] = resp["course"].coursework_set.all()
