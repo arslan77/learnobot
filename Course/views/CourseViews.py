@@ -75,7 +75,7 @@ def NextCourseWork(request, CourseId, CurrentCourseWorkId):
         mineCourse.course_completed = True
     else:
         mineCourse.percentage = (1.00 - (nextCourseWorks.__len__() / courseWorkList.count()))*100
-        nextCourseWork = nextCourseWorks[0]
+        nextCourseWork = nextCourseWorks[nextCourseWorks.__len__() - 1]
         mineCourse.current_course_work = nextCourseWork
 
     mineCourse.save()
