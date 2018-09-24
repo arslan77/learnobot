@@ -34,6 +34,8 @@
                                 <span class="info-box-number">
                                 {% if item.myCourse is None %}0{% else %}{{ item.myCourse.percentage }}{% endif %}%
                             </span>
+
+                            {{ item.lectures_covered }} out of {{ item.total_lectures }} lectures
                             </div>
                             <!-- /.info-box-content -->
                         </div>

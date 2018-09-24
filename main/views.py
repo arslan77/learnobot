@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from Course.models import Course
+from Course.models import Course, CourseWork
 from main.models import SignUpForm, MyCourse
 
 
@@ -14,6 +14,18 @@ def index(request):
     courses = Course.objects.all()
     for course in courses:
         course.myCourse = MyCourse.objects.filter(user=request.user, course=course).first()
+        course.total_lectures = CourseWork.objects.filter(course=course, work_type=CourseWork.LECTURE).count()
+        if course.myCourse is not None:
+            if course.myCourse.current_course_work is not None:
+                lectures = CourseWork.objects.filter(course=course, work_type=CourseWork.LECTURE, ).all()
+                course.lectures_covered = 0
+                for lecture in lectures:
+                    if  lecture.pk < course.myCourse.current_course_work.pk:
+                        course.lectures_covered = course.lectures_covered + 1
+            else:
+                course.lectures_covered = 0
+        else:
+            course.lectures_covered = 0
 
     # print(courses[1].myCourse)
     return render(request, 'index.html', {
